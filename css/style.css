@@ -1,0 +1,152 @@
+@font-face {
+  src: url(/assets/Roboto-Regular.ttf);
+  font-family: roboto;
+}
+body {
+  background: url(../assets/bg-nature.jpg) no-repeat center fixed;
+  background-size: cover;
+  font-family: roboto;
+}
+
+main {
+  width: 100%;
+  display: flex;
+}
+
+header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 2% 5% 0;
+}
+
+button {
+  padding: 16px 20px;
+  background-color: rgba(158, 158, 157, 0.7);
+  border: none;
+  text-transform: uppercase;
+  color: white;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: 0;
+}
+button:hover {
+  background-color: rgba(194, 194, 192, 0.9);
+}
+
+.header-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-buttons > button,
+div {
+  margin-right: 10px;
+}
+
+/* Dropdown */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.lang-drop-content {
+  display: none;
+  position: absolute;
+  background-color: rgba(158, 158, 157, 0.7);
+  min-width: 58px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.lang-drop-content a {
+  color: white;
+  padding: 12px 20px;
+  font-size: 13px;
+  text-decoration: none;
+  display: block;
+}
+
+.lang-drop-content a:hover {
+  background-color: rgba(158, 158, 157, 0.7);
+}
+
+.dropdown:hover .lang-drop-content {
+  display: block;
+}
+
+.dropdown:hover .header-buttons-lang-drop {
+  background-color: rgba(194, 194, 192, 0.9);
+}
+
+.temperature-units {
+  display: flex;
+}
+.temperature-units_fahr {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.temperature-units_cels {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.temperature-units_fahr.inactive,
+.temperature-units_cels.inactive {
+  background: rgba(76, 82, 85, 0.7);
+}
+
+.temperature-units_fahr.inactive:hover,
+.temperature-units_cels.inactive:hover {
+  background-color: rgba(194, 194, 192, 0.9);
+}
+
+/* Search Input */
+.search-input {
+  width: 250px;
+  height: 8px;
+  padding: 18px 10px;
+  border: 0.1rem solid rgba(180, 184, 187, 0.7);
+  border-radius: 0.5rem 0 0 0.5rem;
+  background: rgba(76, 82, 85, 0.7);
+  font-family: inherit;
+  font-size: 18px;
+  color: #fff;
+}
+
+::placeholder {
+  color: rgb(235, 235, 235);
+}
+
+.header-search {
+  display: flex;
+}
+
+#header-search-button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* Responsive */
+@media only screen and (max-width: 780px) {
+  header {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .header-buttons > button,
+  div {
+    margin-bottom: 10px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .search-input {
+    width: 180px;
+  }
+}
