@@ -25,7 +25,7 @@
             <!-- Dropdown Content -->
             <div class="lang-drop-content">
               <a href="#">EN</a>
-              <a href="#">GE</a>
+              <a href="#" class="inactive">GE</a>
             </div>
           </div>
           <div class="temperature-units">
@@ -45,15 +45,85 @@
             type="text"
             name="search"
             id="header-search-input"
-            placeholder="Search city or ZIP"
+            placeholder="Search city"
             class="search-input"
           />
           <button id="header-search-button">search</button>
         </div>
       </header>
       <section>
-        <div></div>
-        <div></div>
+        <div class="weather-info">
+          <div class="weather-info_location">
+            <h1>loudon county, united states of america</h1>
+          </div>
+          <div class="weather-details-container">
+            <div class="weather-info-details">
+              <div class="weather-info-date_temp">
+                <div class="current-date_time">
+                  <h3 class="date">wed 2 december</h3>
+                  <h3 class="time">6:07</h3>
+                </div>
+                <h2 class="current-temperature">34</h2>
+              </div>
+              <div class="weather-info-details_weather">
+                <div class="img-holder">
+                  <img
+                    src="./assets/weather-icons/partly-cloudy-night.png"
+                    alt="cloudy night"
+                  />
+                </div>
+                <div class="weather_details">
+                  <h4>partly cloudy</h4>
+                  <h4>feels like: 27</h4>
+                  <h4>wind: 7 mph</h4>
+                  <h4>humidity: 74%</h4>
+                </div>
+              </div>
+            </div>
+            <div class="weather-info_forecast">
+              <div class="weather-info_forecast-each first">
+                <h4>thursday</h4>
+                <div class="forecast-details">
+                  <h3 class="forecast-details_temp">24</h3>
+                  <div class="forecast-img-holder">
+                    <img
+                      src="./assets/weather-icons/partly-cloudy-day.png"
+                      alt="cloudy day"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="weather-info_forecast-each second">
+                <h4>friday</h4>
+                <div class="forecast-details">
+                  <h3 class="forecast-details_temp">26</h3>
+                  <div class="forecast-img-holder">
+                    <img
+                      src="./assets/weather-icons/clear-day.png"
+                      alt="clear day"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="weather-info_forecast-each third">
+                <h4>saturday</h4>
+                <div class="forecast-details">
+                  <h3 class="forecast-details_temp">17</h3>
+                  <div class="forecast-img-holder">
+                    <img src="./assets/weather-icons/rain.png" alt="rain" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="weather-location">
+          <div class="weather-location_map"></div>
+          <div class="weather-location_long-lat">
+            <h3 class="latitude">Latitude: 39°3'</h3>
+            <h3 class="longtitude">Longitude: -77°29'</h3>
+          </div>
+        </div>
       </section>
       <footer></footer>
     </main>
