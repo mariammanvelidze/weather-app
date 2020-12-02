@@ -35,7 +35,7 @@ button {
   text-transform: uppercase;
   color: white;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
   cursor: pointer;
   outline: 0;
@@ -151,7 +151,7 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+
   color: white;
   width: 50%;
 }
@@ -192,7 +192,7 @@ h1 {
 
 .current-temperature {
   font-size: 22rem;
-  font-weight: bold;
+  font-family: montserrat-bold;
 }
 
 .weather-info-details_weather {
