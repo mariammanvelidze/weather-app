@@ -7,6 +7,11 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/css/reset.css" />
     <link rel="stylesheet" href="/css/style.css" />
     <title>Fancy Weather</title>
@@ -131,10 +136,12 @@
           </div>
         </div>
         <div class="weather-location">
-          <div class="weather-location_map"></div>
+          <div class="weather-location_map" id="map"></div>
           <div class="weather-location_long-lat">
-            <h3 class="latitude">Latitude: 39°3'</h3>
-            <h3 class="longtitude">Longitude: -77°29'</h3>
+            <h3 class="latitude">
+              Latitude: <span id="latitude">-77°29'</span>
+            </h3>
+            <h3 class="longtitude">Longitude: <span id="longitude"></span></h3>
           </div>
         </div>
       </section>
