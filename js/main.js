@@ -29,14 +29,14 @@ function getWeather(city) {
     .then((data) => {
       console.log(data);
 
-      // assing current weather info
+      // assign current weather info
       currentTemp.textContent = data.list[1].main.temp.toFixed(0);
       weatherDesc.textContent = data.list[1].weather[0].main;
       weatherFeels.textContent = data.list[1].main.feels_like.toFixed(0);
       windSpd.textContent = data.list[1].wind.speed.toFixed(0);
       humidity.textContent = data.list[1].main.humidity;
 
-      // assing forecast weather info
+      // assign forecast weather info
       forecastFirstTemp.textContent = data.list[9].main.temp.toFixed(0);
       forecastSecTemp.textContent = data.list[17].main.temp.toFixed(0);
       forecastThirdTemp.textContent = data.list[25].main.temp.toFixed(0);
@@ -71,10 +71,10 @@ window.addEventListener("load", () => {
           return response.json();
         })
         .then((data) => {
-          // assing current location to html
+          // assign current location to html
           city.textContent = `${data.results[0].components.city}, ${data.results[0].components.country}`;
 
-          // get & assing current location weather info
+          // get & assign current location weather info
           getWeather(data.results[0].components.city);
 
           console.log(data);
@@ -116,12 +116,12 @@ window.addEventListener("load", () => {
       "December",
     ];
 
-    // assing current time
+    // assign current time
     let currentMonth = month[d.getMonth()];
     date.textContent = `${currentWeekday} ${d.getDate()} ${currentMonth}`;
     time.textContent = `${d.getHours()}:${d.getMinutes()}`;
 
-    // assing week days to forecast
+    // assign week days to forecast
     forecastFirst.textContent = secondDay;
     forecastSec.textContent = thirdDay;
     forecastThird.textContent = fourthDay;
