@@ -22,12 +22,17 @@ let forecastThird = document.getElementById("forecast-day-3");
 let forecastThirdTemp = document.getElementById("forecast-day-3_temp");
 let forecastThirdImg = document.getElementById("forecast-day-3_img");
 
-function getWeather(city) {
-  let weatherAPI = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&lang=en&units=metric&APPID=d947bf1a0211edc7f91dcb84156c547a`;
+// search input & button
+let searchInput = document.getElementById("header-search-input");
+let searchButton = document.getElementById("header-search-button");
+
+function getWeather(cityName) {
+  let weatherAPI = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&lang=en&units=metric&APPID=d947bf1a0211edc7f91dcb84156c547a`;
   fetch(weatherAPI)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
+      // city
+      city.textContent = `${cityName}, ${data.city.country}`;
 
       // assign current weather info
       currentTemp.textContent = data.list[1].main.temp.toFixed(0);
@@ -71,16 +76,19 @@ window.addEventListener("load", () => {
           return response.json();
         })
         .then((data) => {
-          // assign current location to html
-          city.textContent = `${data.results[0].components.city}, ${data.results[0].components.country}`;
-
           // get & assign current location weather info
           getWeather(data.results[0].components.city);
-
-          console.log(data);
         });
     });
   }
+
+  searchButton.addEventListener("click", () => {
+    if (searchInput) {
+      getWeather(searchInput.value);
+    } else {
+      alert("Input empty or incorrect city name");
+    }
+  });
 
   function clockTick() {
     let d = new Date();
