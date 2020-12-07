@@ -198,6 +198,7 @@ function celsToFahr() {
 // here we run the clockTick function every 1000ms (1 second)
 setInterval(clockTick, 1000);
 
+// get img from unsplash api
 function getImg() {
   const url =
     "https://api.unsplash.com/photos/random?query=morning&client_id=9NLuf3a7wuVVxqyAYgl-7b6mMgPGlOi5jvFetI5yUt4";
@@ -208,6 +209,7 @@ function getImg() {
     });
 }
 
+// change background image on refresh button click
 refreshBg.addEventListener("click", () => {
   getImg();
 });
