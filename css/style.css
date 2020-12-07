@@ -8,7 +8,10 @@
   font-family: montserrat-bold;
 }
 body {
-  background: url(../assets/bg-pictures/bg-nature.jpg) no-repeat center fixed;
+  background-image: url(../assets/bg-pictures/bg-nature.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
   background-size: cover;
   font-family: montserrat;
 }

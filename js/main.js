@@ -31,13 +31,16 @@ let latitude = document.getElementById("latitude");
 let longitude = document.getElementById("longitude");
 let map = document.getElementById("map");
 
+// refresh bg button
+let refreshBg = document.getElementById("refresh-button");
+
 // units
 let fahrUnit = document.getElementById("temperature-units_fahr");
 let celsUnit = document.getElementById("temperature-units_cels");
 
 // get weather info from api & assign
-function getWeather(cityName, lang, unit) {
-  let weatherAPI = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&lang=${lang}&units=${unit}&APPID=d947bf1a0211edc7f91dcb84156c547a`;
+function getWeather(cityName) {
+  let weatherAPI = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&lang=en&units=metric&APPID=d947bf1a0211edc7f91dcb84156c547a`;
   fetch(weatherAPI)
     .then((res) => res.json())
     .then((data) => {
@@ -45,6 +48,7 @@ function getWeather(cityName, lang, unit) {
       let lat = data.city.coord.lat;
       let long = data.city.coord.lon;
       getMap(lat, long);
+      assignLatLong(lat, long);
       // city
       console.log(data);
       city.textContent = `${cityName}, ${data.city.country}`;
@@ -56,10 +60,17 @@ function getWeather(cityName, lang, unit) {
       windSpd.textContent = data.list[1].wind.speed.toFixed(0);
       humidity.textContent = data.list[1].main.humidity;
 
+      weatherImg.src = `http://openweathermap.org/img/wn/${data.list[1].weather[0].icon}@4x.png`;
+
       // assign forecast weather info
       forecastFirstTemp.textContent = data.list[9].main.temp.toFixed(0);
+      forecastFirstImg.src = `http://openweathermap.org/img/wn/${data.list[9].weather[0].icon}@2x.png`;
+
       forecastSecTemp.textContent = data.list[17].main.temp.toFixed(0);
+      forecastSecImg.src = `http://openweathermap.org/img/wn/${data.list[17].weather[0].icon}@2x.png`;
+
       forecastThirdTemp.textContent = data.list[25].main.temp.toFixed(0);
+      forecastThirdImg.src = `http://openweathermap.org/img/wn/${data.list[25].weather[0].icon}@2x.png`;
     });
 }
 
@@ -81,108 +92,122 @@ function getMap(lat, long) {
   new mapboxgl.Marker().setLngLat([long, lat]).addTo(map);
 }
 
-window.addEventListener("load", () => {
-  let long;
-  let lat;
+//
 
-  if (navigator.geolocation) {
-    // get current latitude & longitude
-    navigator.geolocation.getCurrentPosition((position) => {
-      long = position.coords.longitude;
-      lat = position.coords.latitude;
+let long;
+let lat;
 
-      // assing latitude & longitude
-      assignLatLong(lat, long);
-      // display map
-      getMap(lat, long);
+if (navigator.geolocation) {
+  // get current latitude & longitude
+  navigator.geolocation.getCurrentPosition((position) => {
+    long = position.coords.longitude;
+    lat = position.coords.latitude;
 
-      // get current city
-      const apikey = "e4f7ce76ece34f5fa88d15a1e67d9f9f";
-      const api_url = "https://api.opencagedata.com/geocode/v1/json";
-      let url =
-        api_url +
-        "?" +
-        "key=" +
-        apikey +
-        "&q=" +
-        encodeURIComponent(lat + "," + long) +
-        "&pretty=1" +
-        "&no_annotations=1";
+    // assing latitude & longitude
+    assignLatLong(lat, long);
+    // display map
+    getMap(lat, long);
 
-      fetch(url)
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          // get & assign current location weather info
-          getWeather(data.results[0].components.city, "en", "metric");
-          fahrUnit.addEventListener("click", () => {
-            getWeather(data.results[0].components.city, "en", "imperial");
-            fahrUnit.classList.remove("inactive");
-            celsUnit.classList.add("inactive");
-          });
-          celsUnit.addEventListener("click", () => {
-            getWeather(data.results[0].components.city, "en", "metric");
-            fahrUnit.classList.add("inactive");
-            celsUnit.classList.remove("inactive");
-          });
-        });
-    });
-  }
+    // get current city
+    const apikey = "e4f7ce76ece34f5fa88d15a1e67d9f9f";
+    const api_url = "https://api.opencagedata.com/geocode/v1/json";
+    let url =
+      api_url +
+      "?" +
+      "key=" +
+      apikey +
+      "&q=" +
+      encodeURIComponent(lat + "," + long) +
+      "&pretty=1" +
+      "&no_annotations=1";
 
-  searchButton.addEventListener("click", () => {
-    if (searchInput) {
-      getWeather(searchInput.value, "en", "metric");
-    } else {
-      alert("Input empty or incorrect city name");
-    }
+    fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        // get & assign current location weather info
+        // has to change ??
+        getWeather(data.results[0].components.city);
+      });
   });
+}
 
-  function clockTick() {
-    let d = new Date();
-    let weekday = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
-    let fullWeekday = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-
-    // get current & forecast days
-    let currentWeekday = weekday[d.getDay()];
-    let secondDay = fullWeekday[d.getDay() + 1];
-    let thirdDay = fullWeekday[d.getDay() + 2];
-    let fourthDay = fullWeekday[d.getDay() + 3];
-
-    let month = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    // assign current time
-    let currentMonth = month[d.getMonth()];
-    date.textContent = `${currentWeekday} ${d.getDate()} ${currentMonth}`;
-    time.textContent = `${d.getHours()}:${d.getMinutes()}`;
-
-    // assign week days to forecast
-    forecastFirst.textContent = secondDay;
-    forecastSec.textContent = thirdDay;
-    forecastThird.textContent = fourthDay;
+searchButton.addEventListener("click", () => {
+  if (searchInput) {
+    getWeather(searchInput.value);
+  } else {
+    alert("Input empty or incorrect city name");
   }
+});
 
-  // here we run the clockTick function every 1000ms (1 second)
-  setInterval(clockTick, 1000);
+function clockTick() {
+  let d = new Date();
+  let weekday = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+  let fullWeekday = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  // get current & forecast days
+  let currentWeekday = weekday[d.getDay()];
+  let secondDay = fullWeekday[d.getDay() + 1];
+  let thirdDay = fullWeekday[d.getDay() + 2];
+  let fourthDay = fullWeekday[d.getDay() + 3];
+
+  let month = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  // assign current time
+  let currentMonth = month[d.getMonth()];
+  date.textContent = `${currentWeekday} ${d.getDate()} ${currentMonth}`;
+  time.textContent = `${d.getHours()}:${d.getMinutes()}`;
+
+  // assign week days to forecast
+  forecastFirst.textContent = secondDay;
+
+  forecastSec.textContent = thirdDay;
+  forecastThird.textContent = fourthDay;
+}
+
+function celsToFahr() {
+  currentTemp = currentTemp * 1.8 + 32;
+  weatherFeels = weatherFeels * 1.8 + 32;
+  forecastFirstTemp = forecastFirstTemp * 1.8 + 32;
+  forecastSecTemp = forecastSecTemp * 1.8 + 32;
+  forecastThirdTemp = forecastThirdTemp * 1.8 + 32;
+}
+
+// here we run the clockTick function every 1000ms (1 second)
+setInterval(clockTick, 1000);
+
+function getImg() {
+  const url =
+    "https://api.unsplash.com/photos/random?query=morning&client_id=9NLuf3a7wuVVxqyAYgl-7b6mMgPGlOi5jvFetI5yUt4";
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      document.body.style.backgroundImage = `url(${data.urls.regular})`;
+    });
+}
+
+refreshBg.addEventListener("click", () => {
+  getImg();
 });
