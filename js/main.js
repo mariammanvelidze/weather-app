@@ -1,3 +1,5 @@
+import { getImg, getMap, getMapByCity } from "./api.js";
+
 // get main elemenets from html
 let city = document.getElementById("city");
 let date = document.getElementById("date");
@@ -39,37 +41,36 @@ let fahrUnit = document.getElementById("temperature-units_fahr");
 let celsUnit = document.getElementById("temperature-units_cels");
 
 // get weather info from api & assign
-function getWeather(cityName) {
-  let weatherAPI = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&lang=en&units=metric&APPID=d947bf1a0211edc7f91dcb84156c547a`;
+function getWeather(cityName, unit) {
+  let weatherAPI = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&lang=en&units=${unit}&APPID=d947bf1a0211edc7f91dcb84156c547a`;
   fetch(weatherAPI)
     .then((res) => res.json())
     .then((data) => {
       // lat & long
       let lat = data.city.coord.lat;
       let long = data.city.coord.lon;
-      getMap(lat, long);
+      // getMap(lat, long);
       assignLatLong(lat, long);
       // city
-      console.log(data);
       city.textContent = `${cityName}, ${data.city.country}`;
 
       // assign current weather info
-      currentTemp.textContent = data.list[1].main.temp.toFixed(0);
-      weatherDesc.textContent = data.list[1].weather[0].description;
-      weatherFeels.textContent = data.list[1].main.feels_like.toFixed(0);
-      windSpd.textContent = data.list[1].wind.speed.toFixed(0);
-      humidity.textContent = data.list[1].main.humidity;
+      currentTemp.textContent = data.list[0].main.temp.toFixed(0);
+      weatherDesc.textContent = data.list[0].weather[0].description;
+      weatherFeels.textContent = data.list[0].main.feels_like.toFixed(0);
+      windSpd.textContent = data.list[0].wind.speed.toFixed(0);
+      humidity.textContent = data.list[0].main.humidity;
 
-      weatherImg.src = `http://openweathermap.org/img/wn/${data.list[1].weather[0].icon}@4x.png`;
+      weatherImg.src = `http://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@4x.png`;
 
       // assign forecast weather info
-      forecastFirstTemp.textContent = data.list[9].main.temp.toFixed(0);
+      forecastFirstTemp.textContent = data.list[8].main.temp.toFixed(0);
       forecastFirstImg.src = `http://openweathermap.org/img/wn/${data.list[9].weather[0].icon}@2x.png`;
 
-      forecastSecTemp.textContent = data.list[17].main.temp.toFixed(0);
+      forecastSecTemp.textContent = data.list[16].main.temp.toFixed(0);
       forecastSecImg.src = `http://openweathermap.org/img/wn/${data.list[17].weather[0].icon}@2x.png`;
 
-      forecastThirdTemp.textContent = data.list[25].main.temp.toFixed(0);
+      forecastThirdTemp.textContent = data.list[24].main.temp.toFixed(0);
       forecastThirdImg.src = `http://openweathermap.org/img/wn/${data.list[25].weather[0].icon}@2x.png`;
     });
 }
@@ -79,29 +80,13 @@ function assignLatLong(lat, long) {
   longitude.textContent = `${long.toFixed(2)}'`.replace(".", "°");
 }
 
-function getMap(lat, long) {
-  mapboxgl.accessToken =
-    "pk.eyJ1IjoibWFyaWFtbWFudmVsaWR6ZSIsImEiOiJja2lkMWV3djQwNTRvMnVyd3NibGl1bWhoIn0.6J6Vnfk6deSuWUapxzAfSQ";
-  var map = new mapboxgl.Map({
-    container: "map",
-    style: "mapbox://styles/mapbox/streets-v11",
-    center: [long, lat],
-    zoom: 8,
-  });
-
-  new mapboxgl.Marker().setLngLat([long, lat]).addTo(map);
-}
-
-//
-
-let long;
-let lat;
+// get current city & assign info
 
 if (navigator.geolocation) {
   // get current latitude & longitude
   navigator.geolocation.getCurrentPosition((position) => {
-    long = position.coords.longitude;
-    lat = position.coords.latitude;
+    let long = position.coords.longitude;
+    let lat = position.coords.latitude;
 
     // assing latitude & longitude
     assignLatLong(lat, long);
@@ -128,19 +113,44 @@ if (navigator.geolocation) {
       .then((data) => {
         // get & assign current location weather info
         // has to change ??
-        getWeather(data.results[0].components.city);
+        getWeather(data.results[0].components.city, "metric");
+        fahrUnit.addEventListener("click", () => {
+          getWeather(data.results[0].components.city, "imperial");
+          fahrUnit.classList.remove("inactive");
+          celsUnit.classList.add("inactive");
+        });
+        celsUnit.addEventListener("click", () => {
+          getWeather(data.results[0].components.city, "metric");
+          fahrUnit.classList.add("inactive");
+          celsUnit.classList.remove("inactive");
+        });
       });
   });
 }
 
+// get city name from input and display info
 searchButton.addEventListener("click", () => {
-  if (searchInput) {
-    getWeather(searchInput.value);
-  } else {
-    alert("Input empty or incorrect city name");
-  }
+  getMapByCity(searchInput.value);
+  getWeather(searchInput.value, "metric");
+  setToCels();
+  fahrUnit.addEventListener("click", () => {
+    getWeather(searchInput.value, "imperial");
+    fahrUnit.classList.remove("inactive");
+    celsUnit.classList.add("inactive");
+  });
+  celsUnit.addEventListener("click", () => {
+    getWeather(searchInput.value, "metric");
+    fahrUnit.classList.add("inactive");
+    celsUnit.classList.remove("inactive");
+  });
 });
 
+function setToCels() {
+  fahrUnit.classList.add("inactive");
+  celsUnit.classList.remove("inactive");
+}
+
+// display date & time
 function clockTick() {
   let d = new Date();
   let weekday = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
@@ -182,34 +192,29 @@ function clockTick() {
 
   // assign week days to forecast
   forecastFirst.textContent = secondDay;
-
   forecastSec.textContent = thirdDay;
   forecastThird.textContent = fourthDay;
-}
-
-function celsToFahr() {
-  currentTemp = currentTemp * 1.8 + 32;
-  weatherFeels = weatherFeels * 1.8 + 32;
-  forecastFirstTemp = forecastFirstTemp * 1.8 + 32;
-  forecastSecTemp = forecastSecTemp * 1.8 + 32;
-  forecastThirdTemp = forecastThirdTemp * 1.8 + 32;
 }
 
 // here we run the clockTick function every 1000ms (1 second)
 setInterval(clockTick, 1000);
 
-// get img from unsplash api
-function getImg() {
-  const url =
-    "https://api.unsplash.com/photos/random?query=morning&client_id=9NLuf3a7wuVVxqyAYgl-7b6mMgPGlOi5jvFetI5yUt4";
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => {
-      document.body.style.backgroundImage = `url(${data.urls.regular})`;
-    });
+// gets background image according to time (day/night)
+function getImgByTime() {
+  let hours = time.textContent.split(":")[0];
+  if (hours > 17) {
+    getImg("night");
+  } else {
+    getImg("morning");
+  }
 }
 
 // change background image on refresh button click
 refreshBg.addEventListener("click", () => {
-  getImg();
+  getImgByTime();
+});
+
+// change background image on page load
+window.addEventListener("load", () => {
+  getImgByTime();
 });
