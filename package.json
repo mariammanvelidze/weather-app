@@ -1,0 +1,24 @@
+{
+  "name": "fancy-weather",
+  "version": "1.0.0",
+  "description": "Fancy Weather",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rolling-scopes-school/mariammanvelidze-EPAMJSMENTORING.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rolling-scopes-school/mariammanvelidze-EPAMJSMENTORING/issues"
+  },
+  "homepage": "https://github.com/rolling-scopes-school/mariammanvelidze-EPAMJSMENTORING#readme",
+  "devDependencies": {
+    "eslint": "^7.15.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1"
+  }
+}

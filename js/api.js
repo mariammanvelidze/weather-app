@@ -1,18 +1,17 @@
+/*eslint-disable */
 export function getMap(lat, long) {
-  mapboxgl.accessToken =
-    "pk.eyJ1IjoibWFyaWFtbWFudmVsaWR6ZSIsImEiOiJja2lkMWV3djQwNTRvMnVyd3NibGl1bWhoIn0.6J6Vnfk6deSuWUapxzAfSQ";
-  var map = new mapboxgl.Map({
-    container: "map",
-    style: "mapbox://styles/mapbox/streets-v11",
+  mapboxgl.accessToken = 'pk.eyJ1IjoibWFyaWFtbWFudmVsaWR6ZSIsImEiOiJja2lkMWV3djQwNTRvMnVyd3NibGl1bWhoIn0.6J6Vnfk6deSuWUapxzAfSQ';
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
     center: [long, lat],
     zoom: 8,
   });
 }
 
 export function getMapByCity(city) {
-  mapboxgl.accessToken =
-    "pk.eyJ1IjoibWFyaWFtbWFudmVsaWR6ZSIsImEiOiJja2lkMWV3djQwNTRvMnVyd3NibGl1bWhoIn0.6J6Vnfk6deSuWUapxzAfSQ";
-  var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+  mapboxgl.accessToken = 'pk.eyJ1IjoibWFyaWFtbWFudmVsaWR6ZSIsImEiOiJja2lkMWV3djQwNTRvMnVyd3NibGl1bWhoIn0.6J6Vnfk6deSuWUapxzAfSQ';
+  const mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
   mapboxClient.geocoding
     .forwardGeocode({
       query: `${city}`,
@@ -20,18 +19,18 @@ export function getMapByCity(city) {
       limit: 1,
     })
     .send()
-    .then(function (response) {
+    .then((response) => {
       if (
-        response &&
-        response.body &&
-        response.body.features &&
-        response.body.features.length
+        response
+        && response.body
+        && response.body.features
+        && response.body.features.length
       ) {
-        var feature = response.body.features[0];
+        const feature = response.body.features[0];
 
-        var map = new mapboxgl.Map({
-          container: "map",
-          style: "mapbox://styles/mapbox/streets-v11",
+        const map = new mapboxgl.Map({
+          container: 'map',
+          style: 'mapbox://styles/mapbox/streets-v11',
           center: feature.center,
           zoom: 8,
         });
