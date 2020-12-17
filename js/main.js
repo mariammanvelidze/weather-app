@@ -160,6 +160,9 @@ function clockTick() {
     'Thursday',
     'Friday',
     'Saturday',
+    'Sunday',
+    'Monday',
+    'Tuesday',
   ];
 
   // get current & forecast days
