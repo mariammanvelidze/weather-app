@@ -130,9 +130,13 @@ a.inactive {
   border-radius: 0.5rem 0 0 0.5rem;
   background: rgba(76, 82, 85, 0.7);
   font-family: inherit;
-  font-size: 18px;
+  font-size: 15px;
   color: #fff;
   outline: none;
+}
+
+.search-input.invalid {
+  border-color: rgb(212, 81, 81);
 }
 
 ::placeholder {

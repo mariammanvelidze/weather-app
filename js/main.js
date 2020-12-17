@@ -127,19 +127,25 @@ function setToCels() {
 
 // get city name from input and display info
 searchButton.addEventListener('click', () => {
-  getMapByCity(searchInput.value);
-  getWeather(searchInput.value, 'metric');
-  setToCels();
-  fahrUnit.addEventListener('click', () => {
-    getWeather(searchInput.value, 'imperial');
-    fahrUnit.classList.remove('inactive');
-    celsUnit.classList.add('inactive');
-  });
-  celsUnit.addEventListener('click', () => {
+  if (searchInput.value.length === 0 || searchInput.value.match(/^ *$/) !== null) {
+    searchInput.classList.add('invalid');
+    searchInput.placeholder = 'Empty Field';
+  } else {
+    getMapByCity(searchInput.value);
     getWeather(searchInput.value, 'metric');
-    fahrUnit.classList.add('inactive');
-    celsUnit.classList.remove('inactive');
-  });
+    setToCels();
+    searchInput.classList.remove('invalid');
+    fahrUnit.addEventListener('click', () => {
+      getWeather(searchInput.value, 'imperial');
+      fahrUnit.classList.remove('inactive');
+      celsUnit.classList.add('inactive');
+    });
+    celsUnit.addEventListener('click', () => {
+      getWeather(searchInput.value, 'metric');
+      fahrUnit.classList.add('inactive');
+      celsUnit.classList.remove('inactive');
+    });
+  }
 });
 
 // display date & time
