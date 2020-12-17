@@ -210,3 +210,11 @@ refreshBg.addEventListener('click', () => {
 window.addEventListener('load', () => {
   getImgByTime();
 });
+
+// hides page loader
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const loader = document.querySelector('.loader');
+    loader.className += ' hidden';
+  }, 3000);
+});
