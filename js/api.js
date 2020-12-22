@@ -38,7 +38,7 @@ export function getMapByCity(city) {
     });
 }
 
-export function getImg(timeOfTheDay) {
+export function setBackgroundImg(timeOfTheDay) {
   const url = `https://api.unsplash.com/photos/random?query=${timeOfTheDay}&client_id=9NLuf3a7wuVVxqyAYgl-7b6mMgPGlOi5jvFetI5yUt4`;
   fetch(url)
     .then((res) => res.json())

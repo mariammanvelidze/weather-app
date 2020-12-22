@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/extensions
-import { getImg, getMap, getMapByCity } from './api.js';
+import { setBackgroundImg, getMap, getMapByCity } from './api.js';
 
 // get main elemenets from html
 const city = document.getElementById('city');
@@ -196,9 +196,9 @@ setInterval(clockTick, 1000);
 function getImgByTime() {
   const hours = time.textContent.split(':')[0];
   if (hours > 17) {
-    getImg('night');
+    setBackgroundImg('night');
   } else {
-    getImg('morning');
+    setBackgroundImg('morning');
   }
 }
 
