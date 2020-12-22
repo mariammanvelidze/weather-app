@@ -45,38 +45,45 @@ function assignLatLong(lat, long) {
   longitude.textContent = `${long.toFixed(2)}'`.replace('.', '°');
 }
 
-// get weather info from api & assign
+function assignWeather(data, cityName) {
+  // city
+  city.textContent = `${cityName}, ${data.city.country}`;
+
+  // assign current weather info
+  currentTemp.textContent = data.list[0].main.temp.toFixed(0);
+  weatherDesc.textContent = data.list[0].weather[0].description;
+  weatherFeels.textContent = data.list[0].main.feels_like.toFixed(0);
+  windSpd.textContent = data.list[0].wind.speed.toFixed(0);
+  humidity.textContent = data.list[0].main.humidity;
+
+  weatherImg.src = `http://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@4x.png`;
+
+  // assign forecast weather info
+  forecastFirstTemp.textContent = data.list[8].main.temp.toFixed(0);
+  forecastFirstImg.src = `http://openweathermap.org/img/wn/${data.list[9].weather[0].icon}@2x.png`;
+
+  forecastSecTemp.textContent = data.list[16].main.temp.toFixed(0);
+  forecastSecImg.src = `http://openweathermap.org/img/wn/${data.list[17].weather[0].icon}@2x.png`;
+
+  forecastThirdTemp.textContent = data.list[24].main.temp.toFixed(0);
+  forecastThirdImg.src = `http://openweathermap.org/img/wn/${data.list[25].weather[0].icon}@2x.png`;
+}
+
+function assignMap(data) {
+  const { lat } = data.city.coord;
+  const long = data.city.coord.lon;
+
+  assignLatLong(lat, long);
+}
+
+// get weather info from api & invoke assign function
 function getWeather(cityName, unit) {
   const weatherAPI = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&lang=en&units=${unit}&APPID=d947bf1a0211edc7f91dcb84156c547a`;
   fetch(weatherAPI)
     .then((res) => res.json())
     .then((data) => {
-      // lat & long
-      const { lat } = data.city.coord;
-      const long = data.city.coord.lon;
-      // getMap(lat, long);
-      assignLatLong(lat, long);
-      // city
-      city.textContent = `${cityName}, ${data.city.country}`;
-
-      // assign current weather info
-      currentTemp.textContent = data.list[0].main.temp.toFixed(0);
-      weatherDesc.textContent = data.list[0].weather[0].description;
-      weatherFeels.textContent = data.list[0].main.feels_like.toFixed(0);
-      windSpd.textContent = data.list[0].wind.speed.toFixed(0);
-      humidity.textContent = data.list[0].main.humidity;
-
-      weatherImg.src = `http://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@4x.png`;
-
-      // assign forecast weather info
-      forecastFirstTemp.textContent = data.list[8].main.temp.toFixed(0);
-      forecastFirstImg.src = `http://openweathermap.org/img/wn/${data.list[9].weather[0].icon}@2x.png`;
-
-      forecastSecTemp.textContent = data.list[16].main.temp.toFixed(0);
-      forecastSecImg.src = `http://openweathermap.org/img/wn/${data.list[17].weather[0].icon}@2x.png`;
-
-      forecastThirdTemp.textContent = data.list[24].main.temp.toFixed(0);
-      forecastThirdImg.src = `http://openweathermap.org/img/wn/${data.list[25].weather[0].icon}@2x.png`;
+      assignWeather(data, cityName);
+      assignMap(data);
     });
 }
 
