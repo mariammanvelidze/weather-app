@@ -78,7 +78,8 @@ function assignMap(data) {
 
 // get weather info from api & invoke assign function
 function getWeather(cityName, unit) {
-  const weatherAPI = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&lang=en&units=${unit}&APPID=d947bf1a0211edc7f91dcb84156c547a`;
+  const apiKey = 'd947bf1a0211edc7f91dcb84156c547a';
+  const weatherAPI = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&lang=en&units=${unit}&APPID=${apiKey}`;
   fetch(weatherAPI)
     .then((res) => res.json())
     .then((data) => {
