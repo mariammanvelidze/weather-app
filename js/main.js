@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/extensions
 import { getImg, getMap, getMapByCity } from './api.js';
 
 // get main elemenets from html
@@ -55,16 +56,17 @@ function assignWeather(data, cityName) {
   windSpd.textContent = data.list[0].wind.speed.toFixed(0);
   humidity.textContent = data.list[0].main.humidity;
 
-  weatherImg.src = `http://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@4x.png`;
-
   // assign forecast weather info
   forecastFirstTemp.textContent = data.list[8].main.temp.toFixed(0);
-  forecastFirstImg.src = `http://openweathermap.org/img/wn/${data.list[9].weather[0].icon}@2x.png`;
-
   forecastSecTemp.textContent = data.list[16].main.temp.toFixed(0);
-  forecastSecImg.src = `http://openweathermap.org/img/wn/${data.list[17].weather[0].icon}@2x.png`;
-
   forecastThirdTemp.textContent = data.list[24].main.temp.toFixed(0);
+}
+
+function assignWeatherIcons(data) {
+  weatherImg.src = `http://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@4x.png`;
+
+  forecastFirstImg.src = `http://openweathermap.org/img/wn/${data.list[9].weather[0].icon}@2x.png`;
+  forecastSecImg.src = `http://openweathermap.org/img/wn/${data.list[17].weather[0].icon}@2x.png`;
   forecastThirdImg.src = `http://openweathermap.org/img/wn/${data.list[25].weather[0].icon}@2x.png`;
 }
 
@@ -83,6 +85,7 @@ function getWeather(cityName, unit) {
     .then((res) => res.json())
     .then((data) => {
       assignWeather(data, cityName);
+      assignWeatherIcons(data);
       assignMap(data);
     });
 }
