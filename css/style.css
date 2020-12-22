@@ -19,6 +19,9 @@ body {
   background-position: center;
   background-size: cover;
   font-family: montserrat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 main {
@@ -31,13 +34,14 @@ main {
 }
 
 header {
+  padding-top: 2%;
   width: 90%;
   display: flex;
   justify-content: space-between;
 }
 
-button {
-  padding: 16px 20px;
+button, select {
+  padding: 14px 20px;
   background-color: rgba(158, 158, 157, 0.7);
   border: none;
   text-transform: uppercase;
@@ -52,6 +56,10 @@ button:hover {
   background-color: rgba(194, 194, 192, 0.9);
 }
 
+select {
+  padding: 14px 15px;
+}
+
 .header-buttons {
   display: flex;
   justify-content: space-between;
@@ -62,51 +70,15 @@ button:hover {
   margin-right: 10px;
 }
 
-/* Dropdown */
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.lang-drop-content {
-  display: none;
-  position: absolute;
-  background-color: rgba(158, 158, 157, 0.7);
-  min-width: 58px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-.lang-drop-content a {
-  color: white;
-  padding: 12px 27px;
-  font-size: 13px;
-  text-decoration: none;
-  display: block;
-}
-
-.lang-drop-content a:hover {
-  background-color: rgba(158, 158, 157, 0.7);
-}
-
-.dropdown:hover .lang-drop-content {
-  display: block;
-}
-
-.dropdown:hover .header-buttons-lang-drop {
-  background-color: rgba(194, 194, 192, 0.9);
-}
-
 .temperature-units {
   display: flex;
 }
-.temperature-units_fahr {
+.temperature-units-fahr {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.temperature-units_cels {
+.temperature-units-cels {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -116,15 +88,15 @@ a.inactive {
   background: rgba(76, 82, 85, 0.7);
 }
 
-.temperature-units_fahr.inactive:hover,
-.temperature-units_cels.inactive:hover {
+.temperature-units-fahr.inactive:hover,
+.temperature-units-cels.inactive:hover {
   background-color: rgba(194, 194, 192, 0.9);
 }
 
 /* Search Input */
 .search-input {
   width: 250px;
-  height: 8px;
+  height: 10px;
   padding: 18px 10px;
   border: 0.1rem solid rgba(180, 184, 187, 0.7);
   border-radius: 0.5rem 0 0 0.5rem;
@@ -147,24 +119,24 @@ a.inactive {
   display: flex;
 }
 
-#header-search-button {
+.header-search-button {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   position: relative;
   overflow: hidden;
   transition: all 0.5s;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
-#header-search-button span {
+.header-search-button span {
   position: absolute;
   display: block;
 }
 
 /* search button animation */
-#header-search-button span:nth-child(1) {
+.header-search-button span:nth-child(1) {
   height: 3px;
   width: 200px;
-  top: 0px;
+  top: 0;
   left: -200px;
   background: linear-gradient(to right, rgba(0, 0, 0, 0), #eeeeee);
   border-top-right-radius: 1px;
@@ -181,11 +153,11 @@ a.inactive {
     left: 200px;
   }
 }
-#header-search-button span:nth-child(2) {
+.header-search-button span:nth-child(2) {
   height: 70px;
   width: 3px;
   top: -70px;
-  right: 0px;
+  right: 0;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0), #eeeeee);
   border-bottom-left-radius: 1px;
   border-bottom-right-radius: 1px;
@@ -200,11 +172,11 @@ a.inactive {
     top: 70px;
   }
 }
-#header-search-button span:nth-child(3) {
+.header-search-button span:nth-child(3) {
   height: 3px;
   width: 200px;
   right: -200px;
-  bottom: 0px;
+  bottom: 0;
   background: linear-gradient(to left, rgba(0, 0, 0, 0), #eeeeee);
   border-top-left-radius: 1px;
   border-bottom-left-radius: 1px;
@@ -220,11 +192,11 @@ a.inactive {
   }
 }
 
-#header-search-button span:nth-child(4) {
+.header-search-button span:nth-child(4) {
   height: 70px;
   width: 3px;
   bottom: -70px;
-  left: 0px;
+  left: 0;
   background: linear-gradient(to top, rgba(0, 0, 0, 0), #eeeeee);
   border-top-right-radius: 1px;
   border-top-left-radius: 1px;
@@ -243,7 +215,7 @@ a.inactive {
 section {
   display: flex;
   width: 90%;
-  margin-top: 3%;
+  margin-top: 2%;
   justify-content: space-between;
 }
 
@@ -258,7 +230,7 @@ section {
 
 /* Location Name */
 
-h1 {
+h1, .city {
   font-size: 45px;
   text-transform: uppercase;
   font-weight: bold;
@@ -273,14 +245,14 @@ h1 {
   justify-content: space-between;
 }
 
-.weather-info-date_temp {
+.weather-info-date-temp {
   display: flex;
   flex-direction: column;
 
   justify-content: center;
 }
 
-.current-date_time {
+.current-date-time {
   display: flex;
   font-size: 20px;
 }
@@ -295,16 +267,16 @@ h1 {
   font-family: montserrat-bold;
 }
 
-.weather-info-details_weather {
+.weather-info-details-weather {
   display: flex;
   flex-direction: column;
 }
 
-.weather_details {
+.weather-details {
   margin-top: 12%;
 }
 
-.weather_details > * {
+.weather-details > * {
   margin-top: 4%;
 }
 
@@ -324,13 +296,13 @@ h4 {
 
 /* Weather Forecast */
 
-.weather-info_forecast {
+.weather-info-forecast {
   display: flex;
   width: 100%;
   justify-content: space-between;
 }
 
-.weather-info_forecast-each {
+.weather-info-forecast-each {
   display: flex;
   width: 30%;
   flex-direction: column;
@@ -342,7 +314,7 @@ h4 {
   align-items: center;
 }
 
-.forecast-details_temp {
+.forecast-details-temp {
   font-size: 5rem;
 }
 
@@ -358,7 +330,7 @@ h4 {
   flex-direction: column;
   align-items: flex-end;
 }
-.weather-location_map {
+.weather-location-map {
   margin-bottom: 4%;
   width: 380px;
   height: 380px;
@@ -366,7 +338,7 @@ h4 {
   border-radius: 30px;
 }
 
-.weather-location_long-lat {
+.weather-location-long-lat {
   color: white;
   font-size: 23px;
   text-align: right;
@@ -492,7 +464,7 @@ h4 {
   .weather-location {
     margin-top: 13%;
   }
-  .weather-location_map {
+  .weather-location-map {
     width: 350px;
     height: 350px;
   }
@@ -511,7 +483,7 @@ h4 {
   .weather-location {
     margin-top: 13%;
   }
-  .weather-location_map {
+  .weather-location-map {
     width: 600px;
     height: 400px;
   }
@@ -550,18 +522,18 @@ h4 {
     font-size: 11rem;
   }
 
-  .current-date_time {
+  .current-date-time {
     flex-direction: column;
   }
 
-  .weather-info_forecast {
+  .weather-info-forecast {
     flex-direction: column;
   }
 
-  .weather-info_forecast-each {
+  .weather-info-forecast-each {
     width: 100%;
   }
-  .weather-location_map {
+  .weather-location-map {
     width: 450px;
     height: 400px;
   }
@@ -572,7 +544,7 @@ h4 {
     width: 180px;
   }
 
-  .weather-info_location {
+  .weather-info-location {
     text-align: center;
     margin-bottom: 5%;
   }
@@ -585,11 +557,11 @@ h4 {
     width: 100%;
   }
 
-  .weather-info_forecast-each {
+  .weather-info-forecast-each {
     align-items: center;
   }
 
-  .weather-location_map {
+  .weather-location-map {
     width: 300px;
     height: 300px;
   }

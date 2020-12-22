@@ -22,70 +22,62 @@
     <title>Fancy Weather</title>
   </head>
   <body>
+    <header>
+      <div id="header-buttons" class="header-buttons">
+        <button id="refresh-button" class="header-buttons-change-img">
+          <i class="fa fa-undo"></i>
+        </button>
+        <div class="dropdown">
+          <select name="languages" class="header-buttons-lang-drop">
+            <option value="english" class="lang-item">EN</option>
+            <option value="georgian" class="lang-item inactive">GE</option>
+          </select>
+        </div>
+        <div class="temperature-units">
+          <button
+            id="temperature-units-fahr"
+            class="temperature-units-fahr inactive"
+          >
+            °F
+          </button>
+          <button id="temperature-units-cels" class="temperature-units-cels">
+            °C
+          </button>
+        </div>
+      </div>
+      <div id="header-search" class="header-search">
+        <input
+          type="text"
+          name="search"
+          id="header-search-input"
+          placeholder="Search city"
+          class="search-input"
+        />
+        <button class="header-search-button" id="header-search-button">
+          search
+        </button>
+      </div>
+    </header>
     <main>
       <div class="loader">
         <h1 class="loader-text">Fancy <br> Weather</h1>
-        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        <div class="lds-ellipsis"></div>
     </div>
-      <header>
-        <div id="header-buttons" class="header-buttons">
-          <button id="refresh-button" class="header-buttons-change-img">
-            <i class="fa fa-undo"></i>
-          </button>
-          <div class="dropdown">
-            <button class="header-buttons-lang-drop">
-              en <i class="fa fa-arrow-up"></i>
-            </button>
-            <!-- Dropdown Content -->
-            <div class="lang-drop-content">
-              <a href="#">EN</a>
-              <a href="#" class="inactive">GE</a>
-            </div>
-          </div>
-          <div class="temperature-units">
-            <button
-              id="temperature-units_fahr"
-              class="temperature-units_fahr inactive"
-            >
-              °F
-            </button>
-            <button id="temperature-units_cels" class="temperature-units_cels">
-              °C
-            </button>
-          </div>
-        </div>
-        <div id="header-search" class="header-search">
-          <input
-            type="text"
-            name="search"
-            id="header-search-input"
-            placeholder="Search city"
-            class="search-input"
-          />
-          <button id="header-search-button">
-            search
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
-      </header>
       <section>
         <div class="weather-info">
-          <div class="weather-info_location">
-            <h1 id="city">loudon county, united states of america</h1>
+          <div class="weather-info-location">
+            <h2 id="city" class="city"></h2>
           </div>
           <div class="weather-details-container">
             <div class="weather-info-details">
-              <div class="weather-info-date_temp">
-                <div class="current-date_time">
-                  <h3 class="date" id="date">wed 2 december</h3>
-                  <h3 class="time" id="time">6:07</h3>
+              <div class="weather-info-date-temp">
+                <div class="current-date-time">
+                  <h3 class="date" id="date"></h3>
+                  <h3 class="time" id="time"></h3>
                 </div>
-                <h2 class="current-temperature" id="current-temperature">34</h2>
+                <h2 class="current-temperature" id="current-temperature"></h2>
               </div>
-              <div class="weather-info-details_weather">
+              <div class="weather-info-details-weather">
                 <div class="img-holder">
                   <img
                     src="./assets/weather-icons/partly-cloudy-night.png"
@@ -93,56 +85,56 @@
                     id="current-weather-img"
                   />
                 </div>
-                <div class="weather_details">
-                  <h4 id="weather-desc">partly cloudy</h4>
-                  <h4>feels like: <span id="weather-feels-like">27</span>°</h4>
+                <div class="weather-details">
+                  <h4 id="weather-desc"></h4>
+                  <h4>feels like: <span id="weather-feels-like"></span>°</h4>
                   <h4>wind: <span id="wind-speed"></span>mph</h4>
                   <h4>humidity: <span id="humidity"></span>%</h4>
                 </div>
               </div>
             </div>
-            <div class="weather-info_forecast">
-              <div class="weather-info_forecast-each first">
-                <h4 id="forecast-day-1">thursday</h4>
+            <div class="weather-info-forecast">
+              <div class="weather-info-forecast-each first">
+                <h4 id="forecast-day-1"></h4>
                 <div class="forecast-details">
-                  <h3 class="forecast-details_temp">
-                    <span id="forecast-day-1_temp">25</span>°
+                  <h3 class="forecast-details-temp">
+                    <span id="forecast-day-1-temp"></span>°
                   </h3>
                   <div class="forecast-img-holder">
                     <img
                       src="./assets/weather-icons/partly-cloudy-day.png"
                       alt="cloudy day"
-                      id="forecast-day-1_img"
+                      id="forecast-day-1-img"
                     />
                   </div>
                 </div>
               </div>
-              <div class="weather-info_forecast-each second">
-                <h4 id="forecast-day-2">friday</h4>
+              <div class="weather-info-forecast-each second">
+                <h4 id="forecast-day-2"></h4>
                 <div class="forecast-details">
-                  <h3 class="forecast-details_temp">
-                    <span id="forecast-day-2_temp">25</span>°
+                  <h3 class="forecast-details-temp">
+                    <span id="forecast-day-2-temp"></span>°
                   </h3>
                   <div class="forecast-img-holder">
                     <img
                       src="./assets/weather-icons/clear-day.png"
                       alt="clear day"
-                      id="forecast-day-2_img"
+                      id="forecast-day-2-img"
                     />
                   </div>
                 </div>
               </div>
-              <div class="weather-info_forecast-each third">
-                <h4 id="forecast-day-3">saturday</h4>
+              <div class="weather-info-forecast-each third">
+                <h4 id="forecast-day-3"></h4>
                 <div class="forecast-details">
-                  <h3 class="forecast-details_temp">
-                    <span id="forecast-day-3_temp">25</span>°
+                  <h3 class="forecast-details-temp">
+                    <span id="forecast-day-3-temp"></span>°
                   </h3>
                   <div class="forecast-img-holder">
                     <img
                       src="./assets/weather-icons/rain.png"
                       alt="rain"
-                      id="forecast-day-3_img"
+                      id="forecast-day-3-img"
                     />
                   </div>
                 </div>
@@ -151,16 +143,15 @@
           </div>
         </div>
         <div class="weather-location">
-          <div class="weather-location_map" id="map"></div>
-          <div class="weather-location_long-lat">
+          <div class="weather-location-map" id="map"></div>
+          <div class="weather-location-long-lat">
             <h3 class="latitude">
-              Latitude: <span id="latitude">-77°29'</span>
+              Latitude: <span id="latitude"></span>
             </h3>
             <h3 class="longtitude">Longitude: <span id="longitude"></span></h3>
           </div>
         </div>
       </section>
-      <footer></footer>
     </main>
     <script src="https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js"></script>
     <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>

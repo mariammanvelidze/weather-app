@@ -13,16 +13,16 @@ const humidity = document.getElementById('humidity');
 
 // Forecast
 const forecastFirst = document.getElementById('forecast-day-1');
-const forecastFirstTemp = document.getElementById('forecast-day-1_temp');
-const forecastFirstImg = document.getElementById('forecast-day-1_img');
+const forecastFirstTemp = document.getElementById('forecast-day-1-temp');
+const forecastFirstImg = document.getElementById('forecast-day-1-img');
 
 const forecastSec = document.getElementById('forecast-day-2');
-const forecastSecTemp = document.getElementById('forecast-day-2_temp');
-const forecastSecImg = document.getElementById('forecast-day-2_img');
+const forecastSecTemp = document.getElementById('forecast-day-2-temp');
+const forecastSecImg = document.getElementById('forecast-day-2-img');
 
 const forecastThird = document.getElementById('forecast-day-3');
-const forecastThirdTemp = document.getElementById('forecast-day-3_temp');
-const forecastThirdImg = document.getElementById('forecast-day-3_img');
+const forecastThirdTemp = document.getElementById('forecast-day-3-temp');
+const forecastThirdImg = document.getElementById('forecast-day-3-img');
 
 // search input & button
 const searchInput = document.getElementById('header-search-input');
@@ -37,8 +37,8 @@ const longitude = document.getElementById('longitude');
 const refreshBg = document.getElementById('refresh-button');
 
 // units
-const fahrUnit = document.getElementById('temperature-units_fahr');
-const celsUnit = document.getElementById('temperature-units_cels');
+const fahrUnit = document.getElementById('temperature-units-fahr');
+const celsUnit = document.getElementById('temperature-units-cels');
 
 function assignLatLong(lat, long) {
   latitude.textContent = `${lat.toFixed(2)}'`.replace('.', '°');
@@ -227,3 +227,18 @@ window.addEventListener('load', () => {
     loader.className += ' hidden';
   }, 3000);
 });
+
+// ellipsis animation
+
+const lds = document.getElementsByClassName('lds-ellipsis')[0];
+for (let i = 0; i < 4; i += 1) {
+  const loadingCircles = document.createElement('div');
+  lds.appendChild(loadingCircles);
+}
+
+// search button animation
+
+for (let i = 0; i < 4; i += 1) {
+  const spans = document.createElement('span');
+  searchButton.appendChild(spans);
+}
