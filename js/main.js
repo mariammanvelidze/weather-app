@@ -37,8 +37,7 @@ const longitude = document.getElementById('longitude');
 const refreshBg = document.getElementById('refresh-button');
 
 // units
-const fahrUnit = document.getElementById('temperature-units-fahr');
-const celsUnit = document.getElementById('temperature-units-cels');
+const tempSelect = document.getElementById('temperature-unit');
 
 function assignLatLong(lat, long) {
   latitude.textContent = `${lat.toFixed(2)}'`.replace('.', '°');
@@ -88,7 +87,28 @@ function getWeather(cityName, unit) {
     });
 }
 
-// get current city & assign info
+function weatherByUnit(chosenCity) {
+  getWeather(chosenCity, tempSelect.value);
+  tempSelect.onchange = () => {
+    getWeather(chosenCity, tempSelect.value);
+  };
+}
+
+function getCurrentCity(lat, long) {
+  const apikey = 'e4f7ce76ece34f5fa88d15a1e67d9f9f';
+  const apiUrl = 'https://api.opencagedata.com/geocode/v1/json';
+  const url = `${apiUrl}?`
+    + `key=${apikey}&q=${encodeURIComponent(`${lat},${long}`)}&pretty=1`
+    + '&no_annotations=1';
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      weatherByUnit(data.results[0].components.city);
+    });
+}
+
+// get current lat/long & assign info
 
 if (navigator.geolocation) {
   // get current latitude & longitude
@@ -101,36 +121,8 @@ if (navigator.geolocation) {
     // display map
     getMap(lat, long);
 
-    // get current city
-    const apikey = 'e4f7ce76ece34f5fa88d15a1e67d9f9f';
-    const apiUrl = 'https://api.opencagedata.com/geocode/v1/json';
-    const url = `${apiUrl}?`
-      + `key=${apikey}&q=${encodeURIComponent(`${lat},${long}`)}&pretty=1`
-      + '&no_annotations=1';
-
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        // get & assign current location weather info
-        // has to change ??
-        getWeather(data.results[0].components.city, 'metric');
-        fahrUnit.addEventListener('click', () => {
-          getWeather(data.results[0].components.city, 'imperial');
-          fahrUnit.classList.remove('inactive');
-          celsUnit.classList.add('inactive');
-        });
-        celsUnit.addEventListener('click', () => {
-          getWeather(data.results[0].components.city, 'metric');
-          fahrUnit.classList.add('inactive');
-          celsUnit.classList.remove('inactive');
-        });
-      });
+    getCurrentCity(lat, long);
   });
-}
-
-function setToCels() {
-  fahrUnit.classList.add('inactive');
-  celsUnit.classList.remove('inactive');
 }
 
 // get city name from input and display info
@@ -140,19 +132,8 @@ searchButton.addEventListener('click', () => {
     searchInput.placeholder = 'Empty Field';
   } else {
     getMapByCity(searchInput.value);
-    getWeather(searchInput.value, 'metric');
-    setToCels();
+    weatherByUnit(searchInput.value);
     searchInput.classList.remove('invalid');
-    fahrUnit.addEventListener('click', () => {
-      getWeather(searchInput.value, 'imperial');
-      fahrUnit.classList.remove('inactive');
-      celsUnit.classList.add('inactive');
-    });
-    celsUnit.addEventListener('click', () => {
-      getWeather(searchInput.value, 'metric');
-      fahrUnit.classList.add('inactive');
-      celsUnit.classList.remove('inactive');
-    });
   }
 });
 
