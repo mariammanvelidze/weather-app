@@ -27,12 +27,6 @@
         <button id="refresh-button" class="header-buttons-change-img">
           <i class="fa fa-undo"></i>
         </button>
-        <div class="dropdown">
-          <select name="languages" class="header-buttons-lang-drop">
-            <option value="english" class="lang-item">EN</option>
-            <option value="georgian" class="lang-item inactive">GE</option>
-          </select>
-        </div>
         <div class="temperature-units">
           <select name="unit" id="temperature-unit">
             <option value="metric">°C</option>
@@ -55,9 +49,12 @@
     </header>
     <main>
       <div class="loader">
-        <h1 class="loader-text">Fancy <br> Weather</h1>
+        <h1 class="loader-text">
+          Fancy <br />
+          Weather
+        </h1>
         <div class="lds-ellipsis"></div>
-    </div>
+      </div>
       <section>
         <div class="weather-info">
           <div class="weather-info-location">
@@ -74,11 +71,7 @@
               </div>
               <div class="weather-info-details-weather">
                 <div class="img-holder">
-                  <img
-                    src=""
-                    alt="cloudy night"
-                    id="current-weather-img"
-                  />
+                  <img src="" alt="cloudy night" id="current-weather-img" />
                 </div>
                 <div class="weather-details">
                   <h4 id="weather-desc"></h4>
@@ -96,11 +89,7 @@
                     <span id="forecast-day-1-temp"></span>°
                   </h3>
                   <div class="forecast-img-holder">
-                    <img
-                      src=""
-                      alt="cloudy day"
-                      id="forecast-day-1-img"
-                    />
+                    <img src="" alt="cloudy day" id="forecast-day-1-img" />
                   </div>
                 </div>
               </div>
@@ -111,11 +100,7 @@
                     <span id="forecast-day-2-temp"></span>°
                   </h3>
                   <div class="forecast-img-holder">
-                    <img
-                      src=""
-                      alt="clear day"
-                      id="forecast-day-2-img"
-                    />
+                    <img src="" alt="clear day" id="forecast-day-2-img" />
                   </div>
                 </div>
               </div>
@@ -126,11 +111,7 @@
                     <span id="forecast-day-3-temp"></span>°
                   </h3>
                   <div class="forecast-img-holder">
-                    <img
-                      src=""
-                      alt="rain"
-                      id="forecast-day-3-img"
-                    />
+                    <img src="" alt="rain" id="forecast-day-3-img" />
                   </div>
                 </div>
               </div>
@@ -140,9 +121,7 @@
         <div class="weather-location">
           <div class="weather-location-map" id="map"></div>
           <div class="weather-location-long-lat">
-            <h3 class="latitude">
-              Latitude: <span id="latitude"></span>
-            </h3>
+            <h3 class="latitude">Latitude: <span id="latitude"></span></h3>
             <h3 class="longtitude">Longitude: <span id="longitude"></span></h3>
           </div>
         </div>
