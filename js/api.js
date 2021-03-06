@@ -43,6 +43,7 @@ export function setBackgroundImg(timeOfTheDay) {
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
-      document.body.style.backgroundImage = `url(${data.urls.regular})`;
+      console.log(data);
+      // document.body.style.backgroundImage = `url(${data.urls.regular})`;
     });
 }
