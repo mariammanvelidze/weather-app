@@ -1,2 +1,2 @@
 # weather-app
-[Fancy Weather](mariammanvelidze.github.io/weather-app)
+mariammanvelidze.github.io/weather-app
